@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const GenresSchema = new mongoose.Schema({
   name: {
     type: String,
+    lowercase: true,
     required: [true, "Genre name must be provided"],
     enum: [
       "action",
@@ -24,4 +25,9 @@ const GenresSchema = new mongoose.Schema({
   url: String,
 });
 
-module.exports = GenresSchema;
+const GenresModel = mongoose.model("genre", GenresSchema);
+
+module.exports = {
+  GenresModel,
+  GenresSchema,
+};

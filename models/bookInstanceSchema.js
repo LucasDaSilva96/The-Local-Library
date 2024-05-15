@@ -15,7 +15,6 @@ const BookInstanceSchema = new mongoose.Schema({
   },
   due_back: {
     type: Date,
-    required: [true, "Due back date must be provided"],
   },
 
   url: String,
