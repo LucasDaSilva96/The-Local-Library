@@ -1,13 +1,20 @@
 const { GenresModel } = require("../models/genresSchema");
+// const { body, validationResult } = require("express-validator");
+
+exports.renderCreateNewGenre = (req, res, next) => {
+  res.render("genre_form", { title: "Create Genre" });
+};
 
 exports.createNewGenre = async (req, res, next) => {
   try {
     await GenresModel.create({ ...req.body });
 
-    res.status(201).json({
-      status: "success",
-      message: "Genres successfully created",
-    });
+    // res.status(201).json({
+    //   status: "success",
+    //   message: "Genres successfully created",
+    // });
+
+    res.redirect("/genres");
   } catch (e) {
     res.status(400).json({
       status: "fail",
@@ -17,22 +24,12 @@ exports.createNewGenre = async (req, res, next) => {
 };
 
 exports.getAllGenres = async (req, res, next) => {
-  try {
-    const genres = await GenresModel.find();
+  const allGenres = await GenresModel.find();
 
-    if (!genres) throw new Error("No genre in the database");
-
-    res.status(200).json({
-      status: "success",
-      message: "Genres successfully fetched",
-      data: genres,
-    });
-  } catch (e) {
-    res.status(400).json({
-      status: "fail",
-      message: e.message,
-    });
-  }
+  res.render("genre_list", {
+    title: "Genre List",
+    genre_list: allGenres,
+  });
 };
 
 exports.deleteGenre = async (req, res, next) => {

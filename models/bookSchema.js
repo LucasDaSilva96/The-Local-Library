@@ -8,7 +8,7 @@ const BookSchema = new mongoose.Schema({
   },
   author: {
     type: mongoose.ObjectId,
-    ref: "authors",
+    ref: "author",
     required: [true, "Book author must be provided"],
   },
   summary: {
